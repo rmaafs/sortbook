@@ -20,7 +20,6 @@ if ($inSesion == false) {
 <body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
         <?php include "includes/navbar.php"; ?>
-        <?php include "includes/sidebar.php"; ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -198,44 +197,10 @@ if ($inSesion == false) {
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <?php include "includes/rightSidebar.php"; ?>
     <?php include "includes/footer.php"; ?>
     <?php include "includes/js.php"; ?>
 
     <script>
-        $('.js-range-slider').ionRangeSlider({
-            min: 0,
-            max: 100,
-            from: 0,
-            type: 'single',
-            step: 1,
-            postfix: '%',
-            prettify: false,
-            hasGrid: true
-        });
-
-        $(document).ready(function() {
-            $('.select2_usuarios_roles').select2();
-
-            //https://datatables.net/reference/option/language
-            $('#tablaResultados').DataTable({
-                "language": {
-                    "lengthMenu": "_MENU_ Registros por página",
-                    "zeroRecords": "Sin resultados",
-                    "info": "Mostrando la página _PAGE_ de _PAGES_",
-                    "infoEmpty": "Sin resultados",
-                    "infoFiltered": "(Filtrando por _MAX_ registros totales)",
-                    "search": "Buscar:",
-                    "paginate": {
-                        "first": "Primero",
-                        "last": "Último",
-                        "next": "Siguiente",
-                        "previous": "Anterior"
-                    }
-                }
-            });
-        });
-
         function editUsuario(id) {
             var nombre = $("#nombre_" + id).html().trim();
             var apePat = $("#ape_pat_" + id).html().trim();
@@ -316,7 +281,6 @@ if ($inSesion == false) {
                         window.location.reload();
                     }, 500);
                 }
-                //alert(data);
                 $("#btnGuardar").html("Guardar");
                 $("#btnGuardar").attr('disabled', false);
             });

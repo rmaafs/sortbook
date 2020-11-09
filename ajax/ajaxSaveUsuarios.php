@@ -1,5 +1,7 @@
 <?php
 
+    require "../Usuario.php";
+
     session_start();
     $user = isset($_SESSION['user']) ? unserialize($_SESSION['user']) : null;
     $inSesion = isset($user) && isset($user->nombre);

@@ -17,26 +17,19 @@ $idConsulta = isset($_POST['idConsulta']) ? $_POST['idConsulta'] : null;
         $resultado = selectBD("SELECT CONCAT(u.nombre, ' ', u.ape_pat, ' ', u.ape_mat) as nombre, r.respuesta, r.fecha_hora, u.idusuario, idrespuesta FROM respuesta r LEFT JOIN usuario u ON u.idusuario = r.id_usuario WHERE r.id_consulta = " . $idConsulta);
         if ($resultado) {
             while ($fila = $resultado->fetch_assoc()) {
-                $tienePermisos = $user->isAdmin || $fila['idusuario'] == $user->idUser;
+                $tienePermisos = isset($user) && ($user->isAdmin || $fila['idusuario'] == $user->idUser);
         ?>
-                <div class="sl-item" id="comentario_<?php echo $fila['idrespuesta']; ?>">
-                    <div class="sl-left">
-                        <button type="button" class="btn btn-success btn-circle btn-circle text-white">
-                            <i class="fas fa-user"></i>
-                        </button>
-                    </div>
-                    <div class="sl-right">
-                        <div>
-                            <?php
-                            if ($tienePermisos) { ?>
-                                <i class="fas fa-times btn-eliminar" onclick="eliminarComentario(<?php echo $fila['idrespuesta']; ?>);"></i>
-                            <?php
-                            }
-                            ?>
-                            <a href="javascript:void(0)" class="link text-dark"><?php echo $fila['nombre']; ?></a>
-                            <span class="sl-date"><?php echo $fila['fecha_hora']; ?></span>
-                            <p class="mt-1 font-light"><?php echo $fila['respuesta']; ?></p>
-                        </div>
+                <div>
+                    <div>
+                        <?php
+                        if ($tienePermisos) { ?>
+                            <i class="fas fa-times btn-eliminar" onclick="eliminarComentario(<?php echo $fila['idrespuesta']; ?>);"></i>
+                        <?php
+                        }
+                        ?>
+                        <a href="javascript:void(0)" class="link text-dark"><?php echo $fila['nombre']; ?></a>
+                        <span class="sl-date"><?php echo $fila['fecha_hora']; ?></span>
+                        <p class="mt-1 font-light"><?php echo $fila['respuesta']; ?></p>
                     </div>
                 </div>
         <?php

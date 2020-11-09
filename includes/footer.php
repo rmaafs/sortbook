@@ -1,10 +1,6 @@
-
 <!-- Main Footer -->
-<footer class="main-footer">
-    <!-- To the right -->
-    <div class="float-right d-none d-sm-inline">
-        Foro
+<footer class="page-footer font-small blue" style="background-color: #e8e8e8;">
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a href="https://mdbootstrap.com/"> SortBook</a>
     </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2019-2020 <a href="https://adminlte.io">SortBook</a>.</strong> All rights reserved.
 </footer>

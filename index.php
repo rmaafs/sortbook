@@ -25,24 +25,12 @@ require "mysql.php";
 <body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
         <?php include "includes/navbar.php"; ?>
-        <?php include "includes/sidebar.php"; ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0 text-dark"> Publicaciones</h1>
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
 
             <!-- Main content -->
-            <div class="content">
+            <div class="content" style="background-color: #ececec;">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -76,7 +64,7 @@ require "mysql.php";
                         $resultado = selectBD("SELECT CONCAT(u.nombre, ' ', u.ape_pat, ' ', u.ape_mat) as nombre, u.idusuario, c.idconsulta, c.titulo, c.descripcion, c.fecha_hora, (SELECT COUNT(r.idrespuesta) FROM respuesta r WHERE r.id_consulta = c.idconsulta) as respuestas FROM consulta c LEFT JOIN usuario u ON u.idusuario = c.id_usuario WHERE c.titulo LIKE '%" . $search . "%' OR c.descripcion LIKE '%" . $search . "%' ORDER BY c.fecha_hora DESC"); //Seleccionar el campo usNombre de la tabla usuarios
                         if ($resultado) { //Si $resultado != null, significa que si hay resultados del query.
                             while ($fila = $resultado->fetch_assoc()) { //Cicla cada FILA que retorna la consulta, y se guarda en $fila
-                                $tienePermisos = $user->isAdmin || $fila['idusuario'] == $user->idUser;
+                                $tienePermisos = isset($user) && ($user->isAdmin || $fila['idusuario'] == $user->idUser);
                         ?>
                                 <div class="col-md-6 col-lg-4" id="publicacion_<?php echo $fila['idconsulta']; ?>">
                                     <div class="card">
@@ -134,7 +122,6 @@ require "mysql.php";
             </div>
         </div>
 
-        <?php include "includes/rightSidebar.php"; ?>
         <?php include "includes/footer.php"; ?>
     </div>
     <!-- ./wrapper -->
